@@ -1,0 +1,14 @@
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\bin\Debug\net8.0\Task 5-6.exe
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\bin\Debug\net8.0\Task 5-6.deps.json
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\bin\Debug\net8.0\Task 5-6.runtimeconfig.json
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\bin\Debug\net8.0\Task 5-6.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\bin\Debug\net8.0\Task 5-6.pdb
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.AssemblyInfoInputs.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.AssemblyInfo.cs
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.csproj.CoreCompileInputs.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\refint\Task 5-6.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.pdb
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.genruntimeconfig.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\ref\Task 5-6.dll

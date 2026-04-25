@@ -1,0 +1,14 @@
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\bin\Debug\net8.0\Main.exe
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\bin\Debug\net8.0\Main.deps.json
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\bin\Debug\net8.0\Main.runtimeconfig.json
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\bin\Debug\net8.0\Main.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\bin\Debug\net8.0\Main.pdb
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\obj\Debug\net8.0\Main.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\obj\Debug\net8.0\Main.AssemblyInfoInputs.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\obj\Debug\net8.0\Main.AssemblyInfo.cs
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\obj\Debug\net8.0\Main.csproj.CoreCompileInputs.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\obj\Debug\net8.0\Main.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\obj\Debug\net8.0\refint\Main.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\obj\Debug\net8.0\Main.pdb
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\obj\Debug\net8.0\Main.genruntimeconfig.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Main\obj\Debug\net8.0\ref\Main.dll

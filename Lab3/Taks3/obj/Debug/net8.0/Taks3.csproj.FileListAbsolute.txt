@@ -1,0 +1,14 @@
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\bin\Debug\net8.0\Taks3.exe
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\bin\Debug\net8.0\Taks3.deps.json
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\bin\Debug\net8.0\Taks3.runtimeconfig.json
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\bin\Debug\net8.0\Taks3.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\bin\Debug\net8.0\Taks3.pdb
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\obj\Debug\net8.0\Taks3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\obj\Debug\net8.0\Taks3.AssemblyInfoInputs.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\obj\Debug\net8.0\Taks3.AssemblyInfo.cs
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\obj\Debug\net8.0\Taks3.csproj.CoreCompileInputs.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\obj\Debug\net8.0\Taks3.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\obj\Debug\net8.0\refint\Taks3.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\obj\Debug\net8.0\Taks3.pdb
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\obj\Debug\net8.0\Taks3.genruntimeconfig.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Taks3\obj\Debug\net8.0\ref\Taks3.dll

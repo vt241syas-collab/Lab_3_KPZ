@@ -1,0 +1,14 @@
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\bin\Debug\net8.0\Task_4.exe
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\bin\Debug\net8.0\Task_4.deps.json
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\bin\Debug\net8.0\Task_4.runtimeconfig.json
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\bin\Debug\net8.0\Task_4.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\bin\Debug\net8.0\Task_4.pdb
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\obj\Debug\net8.0\Task_4.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\obj\Debug\net8.0\Task_4.AssemblyInfoInputs.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\obj\Debug\net8.0\Task_4.AssemblyInfo.cs
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\obj\Debug\net8.0\Task_4.csproj.CoreCompileInputs.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\obj\Debug\net8.0\Task_4.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\obj\Debug\net8.0\refint\Task_4.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\obj\Debug\net8.0\Task_4.pdb
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\obj\Debug\net8.0\Task_4.genruntimeconfig.cache
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task_4\obj\Debug\net8.0\ref\Task_4.dll
