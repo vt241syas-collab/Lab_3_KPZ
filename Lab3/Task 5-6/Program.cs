@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections.Generic;
 
 namespace LightHtmlCompositeFlyweight
 {
@@ -44,6 +45,7 @@ namespace LightHtmlCompositeFlyweight
     {
         public abstract string OuterHTML();
         public abstract string InnerHTML();
+        public abstract IEnumerable<LightNode> TraverseDFS();
     }
 
 
@@ -54,6 +56,12 @@ namespace LightHtmlCompositeFlyweight
 
         public override string OuterHTML() => _text;
         public override string InnerHTML() => _text;
+
+        // Ітератор для тексту
+        public override IEnumerable<LightNode> TraverseDFS()
+        {
+            yield return this;
+        }
     }
 
 
@@ -66,6 +74,22 @@ namespace LightHtmlCompositeFlyweight
         public LightElementNode(ElementType type) => _type = type;
 
         public void AddChild(LightNode node) => _children.Add(node);
+
+        public int ChildrenCount => _children.Count;
+
+        // ПАТЕРН ІТЕРАТОР 
+        public override IEnumerable<LightNode> TraverseDFS()
+        {
+            yield return this;
+
+           foreach (var child in _children)
+            {
+                foreach (var node in child.TraverseDFS())
+                {
+                    yield return node;
+                }
+            }
+        }
 
         public override string InnerHTML()
         {
@@ -95,10 +119,7 @@ namespace LightHtmlCompositeFlyweight
 
             return _type.Display == DisplayType.Block ? sb.ToString() + Environment.NewLine : sb.ToString();
         }
-
-        public int ChildrenCount => _children.Count;
     }
-
 
     class Program
     {
@@ -155,7 +176,28 @@ namespace LightHtmlCompositeFlyweight
             Console.WriteLine($"Кількість елементів у body: {body.ChildrenCount}");
             Console.WriteLine($"Використано пам'яті: {memEnd - memStart} байт");
 
+           
+            //ТЕСТ ІТЕРАТОРА
+            Console.WriteLine("\n=== ТЕСТ ІТЕРАТОРА (DFS Обхід) ===");
+            int nodeCount = 0;
+
+            
+            foreach (var node in body.TraverseDFS())
+            {
+                nodeCount++;
+                if (node is LightElementNode element)
+                {
+                    Console.WriteLine($"Вузол {nodeCount}: Елемент (Кількість дітей: {element.ChildrenCount})");
+                }
+                else if (node is LightTextNode textNode)
+                {
+                    Console.WriteLine($"Вузол {nodeCount}: Текст -> {textNode.InnerHTML()}");
+                }
+            }
+            
+           Console.WriteLine($"Загальна кількість вузлів у дереві: {nodeCount}");
             Console.ReadKey();
         }
+
     }
 }
