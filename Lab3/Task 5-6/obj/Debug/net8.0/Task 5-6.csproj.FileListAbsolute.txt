@@ -12,3 +12,4 @@ C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\De
 C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.pdb
 C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.genruntimeconfig.cache
 C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\ref\Task 5-6.dll
+C:\Users\Администратор\Desktop\КПЗ\Лаб_3\Lab3\Task 5-6\obj\Debug\net8.0\Task 5-6.sourcelink.json
