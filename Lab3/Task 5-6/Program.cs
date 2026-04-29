@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace LightHtmlCompositeFlyweight
@@ -37,9 +36,6 @@ namespace LightHtmlCompositeFlyweight
         }
     }
 
-    // ==========================================================
-    // === ПАТЕРН ВІДВІДУВАЧ (Visitor) - ІНТЕРФЕЙСИ ТА КЛАСИ ===
-    // ==========================================================
     public interface ILightNodeVisitor
     {
         void Visit(LightTextNode node);
@@ -49,28 +45,49 @@ namespace LightHtmlCompositeFlyweight
     public class TextExtractionVisitor : ILightNodeVisitor
     {
         private StringBuilder _extractedText = new StringBuilder();
-
-        public void Visit(LightTextNode node)
-        {
-            _extractedText.AppendLine(node.InnerHTML());
-        }
-
-        public void Visit(LightElementNode node)
-        {
-            // Елементи (теги) ми ігноруємо, бо нам потрібен тільки текст
-        }
-
+        public void Visit(LightTextNode node) => _extractedText.AppendLine(node.InnerHTML());
+        public void Visit(LightElementNode node) { }
         public string GetExtractedText() => _extractedText.ToString();
     }
-    // ==========================================================
 
+    //ПАТЕРН КОМАНДА
+    
+    public interface ICommand
+    {
+        void Execute();
+        void Undo();
+    }
+
+    
+    public class AddNodeCommand : ICommand
+    {
+        private readonly LightElementNode _parent;
+        private readonly LightNode _child;
+
+        public AddNodeCommand(LightElementNode parent, LightNode child)
+        {
+            _parent = parent;
+            _child = child;
+        }
+
+        public void Execute()
+        {
+            _parent.AddChild(_child);
+            Console.WriteLine($"[Command] Виконано: додано вузол до <{_parent.TagName}>");
+        }
+
+        public void Undo()
+        {
+            _parent.RemoveChild(_child);
+            Console.WriteLine($"[Command] Скасовано: видалено вузол з <{_parent.TagName}>");
+        }
+    }
+   
     public abstract class LightNode
     {
         public abstract string OuterHTML();
         public abstract string InnerHTML();
         public abstract IEnumerable<LightNode> TraverseDFS();
-
-        // Додано для патерна Відвідувач
         public abstract void Accept(ILightNodeVisitor visitor);
     }
 
@@ -81,17 +98,8 @@ namespace LightHtmlCompositeFlyweight
 
         public override string OuterHTML() => _text;
         public override string InnerHTML() => _text;
-
-        public override IEnumerable<LightNode> TraverseDFS()
-        {
-            yield return this;
-        }
-
-        // Додано для патерна Відвідувач
-        public override void Accept(ILightNodeVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
+        public override IEnumerable<LightNode> TraverseDFS() { yield return this; }
+        public override void Accept(ILightNodeVisitor visitor) => visitor.Visit(this);
     }
 
     public class LightElementNode : LightNode
@@ -100,9 +108,13 @@ namespace LightHtmlCompositeFlyweight
         private readonly List<LightNode> _children = new List<LightNode>();
         public List<string> CssClasses { get; } = new List<string>();
 
+       public string TagName => _type.TagName;
+
         public LightElementNode(ElementType type) => _type = type;
 
         public void AddChild(LightNode node) => _children.Add(node);
+
+       public void RemoveChild(LightNode node) => _children.Remove(node);
 
         public int ChildrenCount => _children.Count;
 
@@ -111,28 +123,20 @@ namespace LightHtmlCompositeFlyweight
             yield return this;
             foreach (var child in _children)
             {
-                foreach (var node in child.TraverseDFS())
-                {
-                    yield return node;
-                }
+                foreach (var node in child.TraverseDFS()) yield return node;
             }
         }
 
-        // Додано для патерна Відвідувач
         public override void Accept(ILightNodeVisitor visitor)
         {
             visitor.Visit(this);
-            foreach (var child in _children)
-            {
-                child.Accept(visitor);
-            }
+            foreach (var child in _children) child.Accept(visitor);
         }
 
         public override string InnerHTML()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var child in _children)
-                sb.Append(child.OuterHTML());
+            foreach (var child in _children) sb.Append(child.OuterHTML());
             return sb.ToString();
         }
 
@@ -140,13 +144,9 @@ namespace LightHtmlCompositeFlyweight
         {
             StringBuilder sb = new StringBuilder();
             string classes = CssClasses.Count > 0 ? $" class=\"{string.Join(" ", CssClasses)}\"" : "";
-
             sb.Append($"<{_type.TagName}{classes}");
 
-            if (_type.Closing == ClosingType.SelfClosing)
-            {
-                sb.Append(" />");
-            }
+            if (_type.Closing == ClosingType.SelfClosing) sb.Append(" />");
             else
             {
                 sb.Append(">");
@@ -173,11 +173,8 @@ namespace LightHtmlCompositeFlyweight
                "ESCALUS, Prince of Verona.\r\nMERCUTIO, kinsman to the Prince, and friend to Romeo.\r\nPARIS, a young Nobleman, kinsman to the Prince.\r\nPage to Paris.";
 
             string[] lines = bookText.Split('\n');
-
             var bodyType = factory.GetElementType("body", DisplayType.Block, ClosingType.Normal);
             var body = new LightElementNode(bodyType);
-
-            long memStart = GC.GetTotalMemory(true);
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -185,53 +182,47 @@ namespace LightHtmlCompositeFlyweight
                 if (string.IsNullOrWhiteSpace(line)) continue;
 
                 ElementType type;
-                if (i == 0)
-                    type = factory.GetElementType("h1", DisplayType.Block, ClosingType.Normal);
-                else if (line.Trim().Length < 20)
-                    type = factory.GetElementType("h2", DisplayType.Block, ClosingType.Normal);
-                else if (char.IsWhiteSpace(line[0]))
-                    type = factory.GetElementType("blockquote", DisplayType.Block, ClosingType.Normal);
-                else
-                    type = factory.GetElementType("p", DisplayType.Block, ClosingType.Normal);
+                if (i == 0) type = factory.GetElementType("h1", DisplayType.Block, ClosingType.Normal);
+                else if (line.Trim().Length < 20) type = factory.GetElementType("h2", DisplayType.Block, ClosingType.Normal);
+                else if (char.IsWhiteSpace(line[0])) type = factory.GetElementType("blockquote", DisplayType.Block, ClosingType.Normal);
+                else type = factory.GetElementType("p", DisplayType.Block, ClosingType.Normal);
 
                 var element = new LightElementNode(type);
                 element.AddChild(new LightTextNode(line.Trim()));
                 body.AddChild(element);
             }
 
-            long memEnd = GC.GetTotalMemory(true);
+            //  ТЕСТ ПАТЕРНА КОМАНДА 
+          
+            Console.WriteLine("\n=== ТЕСТ КОМАНДИ (Додавання та Скасування) ===");
 
-            Console.WriteLine("=== ВЕРСТКА СТОРІНКИ (Composite + Flyweight) ===\n");
+            var footerType = factory.GetElementType("footer", DisplayType.Block, ClosingType.Normal);
+            var footerElement = new LightElementNode(footerType);
+            footerElement.AddChild(new LightTextNode("The end of the book."));
+
+           ICommand addFooterCommand = new AddNodeCommand(body, footerElement);
+
+           addFooterCommand.Execute();
+            Console.WriteLine($"Дітей у body ПІСЛЯ Execute: {body.ChildrenCount}");
+
+           
+            addFooterCommand.Undo();
+            Console.WriteLine($"Дітей у body ПІСЛЯ Undo: {body.ChildrenCount}");
+            
+
+
+            Console.WriteLine("\nВЕРСТКА СТОРІНКИ\n");
             Console.WriteLine(body.OuterHTML());
 
-            Console.WriteLine("\n=== СТАТИСТИКА ===");
-            Console.WriteLine($"Кількість елементів у body: {body.ChildrenCount}");
-            Console.WriteLine($"Використано пам'яті: {memEnd - memStart} байт");
-
-            // === ТЕСТ ІТЕРАТОРА ===
             Console.WriteLine("\nТЕСТ ІТЕРАТОРА");
             int nodeCount = 0;
-            foreach (var node in body.TraverseDFS())
-            {
-                nodeCount++;
-                if (node is LightElementNode element)
-                {
-                    Console.WriteLine($"Вузол {nodeCount}: Елемент (Кількість дітей: {element.ChildrenCount})");
-                }
-                else if (node is LightTextNode textNode)
-                {
-                    Console.WriteLine($"Вузол {nodeCount}: Текст -> {textNode.InnerHTML()}");
-                }
-            }
+            foreach (var node in body.TraverseDFS()) nodeCount++;
             Console.WriteLine($"Загальна кількість вузлів у дереві: {nodeCount}");
 
-            // ТЕСТ ВІДВІДУВАЧА 
-            Console.WriteLine("\nТЕСТ ВІДВІДУВАЧА ");
+            Console.WriteLine("\nТЕСТ ВІДВІДУВАЧА");
             var textVisitor = new TextExtractionVisitor();
-
             body.Accept(textVisitor);
-
-            Console.WriteLine(textVisitor.GetExtractedText());
+            Console.WriteLine("Текст успішно витягнуто (символів: " + textVisitor.GetExtractedText().Length + ")");
 
             Console.ReadKey();
         }
