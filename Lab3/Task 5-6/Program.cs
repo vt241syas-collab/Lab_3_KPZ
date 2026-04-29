@@ -36,7 +36,7 @@ namespace LightHtmlCompositeFlyweight
         }
     }
 
-    // ПАТЕРН ВІДВІДУВАЧ
+    //ПАТЕРН ВІДВІДУВАЧ
     public interface ILightNodeVisitor
     {
         void Visit(LightTextNode node);
@@ -51,7 +51,7 @@ namespace LightHtmlCompositeFlyweight
         public string GetExtractedText() => _extractedText.ToString();
     }
 
-    // ПАТЕРН КОМАНДА
+    //ПАТЕРН КОМАНДА
     public interface ICommand
     {
         void Execute();
@@ -82,10 +82,25 @@ namespace LightHtmlCompositeFlyweight
         }
     }
 
+    //ПАТЕРН СТЕЙТ
+    public interface INodeState
+    {
+        string Render(LightNode node, Func<string> defaultRender);
+    }
+
+    public class VisibleState : INodeState
+    {
+        public string Render(LightNode node, Func<string> defaultRender) => defaultRender();
+    }
+
+    public class HiddenState : INodeState
+    {
+        public string Render(LightNode node, Func<string> defaultRender) => ""; 
+    }
+
     public abstract class LightNode
     {
-        // ПАТЕРН ШАБЛОННИЙ МЕТОД
-      
+        //ПАТЕРН ШАБЛОННИЙ МЕТОД
         public string Render()
         {
             return GetOpeningTag() + GetContent() + GetClosingTag();
@@ -97,8 +112,8 @@ namespace LightHtmlCompositeFlyweight
 
         public abstract string OuterHTML();
         public abstract string InnerHTML();
-        public abstract IEnumerable<LightNode> TraverseDFS(); // ПАТЕРН ІТЕРАТОР
-        public abstract void Accept(ILightNodeVisitor visitor); // ПАТЕРН ВІДВІДУВАЧ
+        public abstract IEnumerable<LightNode> TraverseDFS(); //ПАТЕРН ІТЕРАТОР 
+        public abstract void Accept(ILightNodeVisitor visitor);
     }
 
     public class LightTextNode : LightNode
@@ -106,10 +121,9 @@ namespace LightHtmlCompositeFlyweight
         private readonly string _text;
         public LightTextNode(string text) => _text = text;
 
-        public override string OuterHTML() => Render(); 
+        public override string OuterHTML() => Render();
         public override string InnerHTML() => _text;
 
-       
         protected override string GetOpeningTag() => "";
         protected override string GetContent() => _text;
         protected override string GetClosingTag() => "";
@@ -124,6 +138,9 @@ namespace LightHtmlCompositeFlyweight
         private readonly List<LightNode> _children = new List<LightNode>();
         public List<string> CssClasses { get; } = new List<string>();
 
+      
+        public INodeState State { get; set; } = new VisibleState();
+
         public string TagName => _type.TagName;
         public LightElementNode(ElementType type) => _type = type;
 
@@ -131,7 +148,8 @@ namespace LightHtmlCompositeFlyweight
         public void RemoveChild(LightNode node) => _children.Remove(node);
         public int ChildrenCount => _children.Count;
 
-        public override string OuterHTML() => Render();
+    
+        public override string OuterHTML() => State.Render(this, () => Render());
 
         public override string InnerHTML()
         {
@@ -140,7 +158,6 @@ namespace LightHtmlCompositeFlyweight
             return sb.ToString();
         }
 
-       
         protected override string GetOpeningTag()
         {
             string classes = CssClasses.Count > 0 ? $" class=\"{string.Join(" ", CssClasses)}\"" : "";
@@ -209,8 +226,20 @@ namespace LightHtmlCompositeFlyweight
                 body.AddChild(element);
             }
 
+            Console.WriteLine("\nВЕРСТКА СТОРІНКИ\n");
+            Console.WriteLine(body.OuterHTML());
+
+            // ТЕСТ ПАТЕРНА СТЕЙТ 
+            Console.WriteLine("\nТЕСТ СТЕЙТУ");
+            Console.WriteLine("Змінюємо стан body на Hidden. HTML вивід має зникнути:");
+            body.State = new HiddenState();
+            Console.WriteLine($"Результат: '{body.OuterHTML()}'");
+
+            Console.WriteLine("Повертаємо стан body на Visible.");
+            body.State = new VisibleState();
+
             // ТЕСТ ПАТЕРНА КОМАНДА 
-            Console.WriteLine("\nТЕСТ КОМАНДИ (Додавання та Скасування)");
+            Console.WriteLine("\nТЕСТ КОМАНДИ");
             var footerType = factory.GetElementType("footer", DisplayType.Block, ClosingType.Normal);
             var footerElement = new LightElementNode(footerType);
             footerElement.AddChild(new LightTextNode("The end of the book."));
@@ -220,10 +249,6 @@ namespace LightHtmlCompositeFlyweight
             Console.WriteLine($"Дітей у body ПІСЛЯ Execute: {body.ChildrenCount}");
             addFooterCommand.Undo();
             Console.WriteLine($"Дітей у body ПІСЛЯ Undo: {body.ChildrenCount}");
-
-            // ТЕСТ ШАБЛОННОГО МЕТОДУ 
-            Console.WriteLine("\nВЕРСТКА СТОРІНКИ (через Шаблонний метод)\n");
-            Console.WriteLine(body.OuterHTML());
 
             // ТЕСТ ІТЕРАТОРА
             Console.WriteLine("\nТЕСТ ІТЕРАТОРА");
